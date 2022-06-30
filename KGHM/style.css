@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Gaegu&family=Jua&display=swap");
 
-body{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    font-family: 'Gaegu', cursive;
-    
+  font-family: "Gaegu", cursive;
 }
