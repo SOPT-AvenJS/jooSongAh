@@ -9,20 +9,23 @@ import hangmanImg8 from "./public/assets/8.png";
 import hangmanImg9 from "./public/assets/9.png";
 import hangmanImg10 from "./public/assets/10.png";
 import hangmanImg11 from "./public/assets/fire.png";
+import carrot from "./public/assets/carrot.png";
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-const lifeArr = $$(".life-wrapper"); //목숨
+const lifeArr = $$(".carrot-life--wrapper"); //목숨
 const wordArr = $(".words"); //단어ul
 const hangmanImg = $(".hangman-img"); //이미지
 const failModal = $(".fail-modal"); //실패 모달
-const successModal = $(".success-modal"); //실패 모달
+const successModal = $(".success-modal"); //성공 모달
 
 let answerWord = ""; //정답단어
+let correctCnt = 0; //맞춘 단어개수
 let chance = 10; // 카운트는 10
-let imageCount = 0; // 이미지 번째 수
-let status = ""; //성공, 실패
+let imgCnt = 0; // 이미지 번째 수
+let correctFlag = false; //정답이 있는지에 대한 flag
+let status = ""; //최종 성공, 실패
 
 const imageList = [
   hangmanImg1,
@@ -63,23 +66,56 @@ window.addEventListener("keydown", (e) => guessWord(e));
 
 //시용자가 누른 단어가 있는 지 확인하기
 const guessWord = (e) => {
-  console.log(">>>단어", answerWord);
+  correctFlag = false;
   const userInput = e.key.toLowerCase();
-  console.log(">>>>>>사용자 입력", userInput);
+
+  answerWord.forEach((element, idx) => {
+    //사용자 입력이 맞는경우
+    if (element === userInput) {
+      const word = $$(".word");
+      word[idx].innerHTML = `${element.toLowerCase()} &nbsp`;
+      correctFlag = true;
+      correctCnt++;
+
+      if (correctCnt === 7) {
+        status = "success";
+        showModal();
+      }
+    }
+  });
+
+  //사용자 입력이 틀린 경우, chance--, imgcnt++
+  if (!correctFlag) {
+    chance--;
+    imgCnt++;
+    setKingmanImg();
+    deleteLife();
+  }
+  //게임이 끝난 경우
+  if (imgCnt === 10) {
+    status = "fail";
+    showModal();
+  }
 };
 
 //모달을 보여주는 함수
-function showModal() {
-  if (status == "fail") {
-    failModal.remove("hide");
-  } else if (status == "success") {
-    successModal.remove("hide");
+const showModal = () => {
+  if (status === "fail") {
+    failModal.classList.remove("hide");
+  } else if (status === "success") {
+    successModal.classList.remove("hide");
   }
-}
+};
 
-//이미지를 틀린횟수에 따라 바꾸기
+//목숨 이미지를 틀린횟수만큼 지우기
+const deleteLife = () => {
+  const element = $(".carrot-life");
+  element.parentNode.removeChild(element);
+};
+
+//킹맨 이미지를 틀린횟수에 따라 바꾸기
 function setKingmanImg() {
-  hangmanImg.src = imageList[imageCount];
+  hangmanImg.src = imageList[imgCnt];
 }
 
 //단어 받아오는 곳 초기화하는 곳!
@@ -87,18 +123,29 @@ async function setWordSection() {
   for (let i = 0; i < 7; i++) {
     const li = document.createElement("li");
     li.className = "word";
-    li.innerHTML = "_";
+    li.innerHTML = "_&nbsp";
     wordArr.appendChild(li);
   }
 }
+
+// //목숨생성하기
+// const setLife = async () => {
+//   for (let i = 0; i < 10; i++) {
+//     let img = document.createElement("img")[i];
+//     // img.setAttribute("src", "public/assets/carrot.png");
+//     img.src = imageList[0];
+//     lifeArr.appendChild(img);
+//   }
+// };
 
 //게임 초기화
 const init = async () => {
   answerWord = await setWord(); //단어 새로 받아오고
   chance = 10; //기회 10으로 초기화
-  imageCount = 0; //이미지 카운트는 0으로 초기화
+  imgCnt = 0; //이미지 카운트는 0으로 초기화
   setWordSection(); //워드섹션 만들기
   setKingmanImg(); //이미지 바꾸기
+  // setLife(); //목숨갯수 이미지 넣기
 };
 
 window.onload = () => {
