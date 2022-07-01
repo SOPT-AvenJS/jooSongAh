@@ -1,28 +1,56 @@
-<html>  
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="hangman-pic.css">
-        <title>start KGHM</title>
-    </head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>KGHM</title>
+  </head>
 
-    <body>
-        <header>
-            <h1>👅킹맨 한판하실?👅</h1>
-        </header>
+  <body>
+    <header>
+      <h1>행맨 한판하실?</h1>
+    </header>
 
-        <main>
-            <div class="game-wrapper">
-                <section class="life">기회:</section>
-                <section class="hangman">
-                    <div class="hangman_1"></div>
-                </section>
-                <section class="result"></section>
-                <section class="input"></section>
-            </div>
-        </main>
-    </body>
+    <main>
+      <div class="game--wrapper">
+        <ul class="carrot-life--wrapper">
+        </ul>
+        <div class="hangman">
+          <img
+            class="hangman-img"
+            src="/assets/1.png"
+            alt="킹맨"
+          />
+          <section class="hangman-input">
+            <ul class="words"></ul>
+          </section>
+        </div>
+
+        <div class="fail-modal modal hide">
+          <p class="modal_text">이것밖에 안되냐구!</p>
+          <img
+            class="modal_img"
+            src="/assets/kingrabbit.png"
+            alt="실패토끼"
+          />
+        </div>
+        <div class="success-modal modal hide">
+          <p class="modal_text">성공을 맛보라구~</p>
+          <img
+            class="modal_img"
+            src="/assets/cuterabbit.png"
+            alt="성공토끼"
+          />
+        </div>
+        <button type="submit" class="reset">다시하기</button>
+      </div>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
 </html>
