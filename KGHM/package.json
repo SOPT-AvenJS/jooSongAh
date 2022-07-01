@@ -9,5 +9,8 @@
   },
   "devDependencies": {
     "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "yarn": "^1.22.19"
   }
 }

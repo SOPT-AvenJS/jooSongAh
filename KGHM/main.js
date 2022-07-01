@@ -1,20 +1,19 @@
-import hangmanImg1 from "./public/assets/1.png";
-import hangmanImg2 from "./public/assets/2.png";
-import hangmanImg3 from "./public/assets/3.png";
-import hangmanImg4 from "./public/assets/4.png";
-import hangmanImg5 from "./public/assets/5.png";
-import hangmanImg6 from "./public/assets/6.png";
-import hangmanImg7 from "./public/assets/7.png";
-import hangmanImg8 from "./public/assets/8.png";
-import hangmanImg9 from "./public/assets/9.png";
-import hangmanImg10 from "./public/assets/10.png";
-import hangmanImg11 from "./public/assets/fire.png";
-import carrot from "./public/assets/carrot.png";
+import hangmanImg1 from "/assets/1.png";
+import hangmanImg2 from "/assets/2.png";
+import hangmanImg3 from "/assets/3.png";
+import hangmanImg4 from "/assets/4.png";
+import hangmanImg5 from "/assets/5.png";
+import hangmanImg6 from "/assets/6.png";
+import hangmanImg7 from "/assets/7.png";
+import hangmanImg8 from "/assets/8.png";
+import hangmanImg9 from "/assets/9.png";
+import hangmanImg10 from "/assets/10.png";
+import hangmanImg11 from "/assets/fire.png";
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-const lifeArr = $$(".carrot-life--wrapper"); //목숨
+const lifeArr = $(".carrot-life--wrapper"); //목숨
 const wordArr = $(".words"); //단어ul
 const hangmanImg = $(".hangman-img"); //이미지
 const failModal = $(".fail-modal"); //실패 모달
@@ -55,7 +54,7 @@ async function getWord() {
 //단어 받아와서 길이 확인 후 단어 설정하기
 async function setWord() {
   let word = await getWord(); //단어 받아오기
-  while (word.length != 7) {
+  while (word.length !== 7) {
     word = await getWord();
   }
   return word;
@@ -100,11 +99,7 @@ const guessWord = (e) => {
 
 //모달을 보여주는 함수
 const showModal = () => {
-  if (status === "fail") {
-    failModal.classList.remove("hide");
-  } else if (status === "success") {
-    successModal.classList.remove("hide");
-  }
+  status === "fail" ? failModal.classList.remove("hide") : successModal.classList.remove("hide");
 };
 
 //목숨 이미지를 틀린횟수만큼 지우기
@@ -128,15 +123,14 @@ async function setWordSection() {
   }
 }
 
-// //목숨생성하기
-// const setLife = async () => {
-//   for (let i = 0; i < 10; i++) {
-//     let img = document.createElement("img")[i];
-//     // img.setAttribute("src", "public/assets/carrot.png");
-//     img.src = imageList[0];
-//     lifeArr.appendChild(img);
-//   }
-// };
+//목숨생성하기
+const setLife = async () => {
+  for (let i = 0; i < 10; i++) {
+    const img = document.createElement("img");
+    img.setAttribute("src", "/assets/carrot.png");
+    lifeArr.appendChild(img);
+  }
+};
 
 //게임 초기화
 const init = async () => {
@@ -145,7 +139,7 @@ const init = async () => {
   imgCnt = 0; //이미지 카운트는 0으로 초기화
   setWordSection(); //워드섹션 만들기
   setKingmanImg(); //이미지 바꾸기
-  // setLife(); //목숨갯수 이미지 넣기
+  setLife(); //목숨 생성하고 이미지 넣기
 };
 
 window.onload = () => {

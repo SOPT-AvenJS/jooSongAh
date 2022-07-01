@@ -54,11 +54,12 @@ header {
 
   background-color: black;
   color: white;
+  opacity: 0.9;
 
   border-radius: 1rem;
 
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
