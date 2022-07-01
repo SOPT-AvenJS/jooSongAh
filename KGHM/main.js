@@ -41,7 +41,7 @@ const imageList = [
 ];
 
 //단어받기 통신
-async function getWord() {
+const getWord = async () => {
   const response = await fetch("http://puzzle.mead.io/puzzle?wordCount=1");
   if (response.status === 200) {
     const data = await response.json();
@@ -52,7 +52,7 @@ async function getWord() {
 }
 
 //단어 받아와서 길이 확인 후 단어 설정하기
-async function setWord() {
+const setWord = async () => {
   let word = await getWord(); //단어 받아오기
   while (word.length !== 7) {
     word = await getWord();
@@ -109,12 +109,12 @@ const deleteLife = () => {
 };
 
 //킹맨 이미지를 틀린횟수에 따라 바꾸기
-function setKingmanImg() {
+const setKingmanImg = () => {
   hangmanImg.src = imageList[imgCnt];
 }
 
 //단어 받아오는 곳 초기화하는 곳!
-async function setWordSection() {
+const setWordSection = async () => {
   for (let i = 0; i < 7; i++) {
     const li = document.createElement("li");
     li.className = "word";
